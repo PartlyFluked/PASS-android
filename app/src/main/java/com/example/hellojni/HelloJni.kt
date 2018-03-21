@@ -13,30 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.hellojni;
+package com.example.hellojni
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 
-public class HelloJni extends AppCompatActivity {
+class HelloJni : AppCompatActivity() {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         /* Retrieve our TextView and set its content.
          * the text is retrieved by calling a native
          * function.
          */
-        setContentView(R.layout.activity_hello_jni);
-        TextView tv = (TextView)findViewById(R.id.hello_textview);
-        tv.setText( stringFromJNI() );
+        setContentView(R.layout.activity_home)
+        //val tv = findViewById(R.id.hello_textview) as TextView
+        //tv.text = stringFromJNI()
     }
+
+    fun gotoHome(view: View){
+        setContentView(R.layout.activity_home)
+    }
+    fun gotoKeys(view: View){
+        setContentView(R.layout.activity_keys)
+    }
+    fun gotoVault(view: View){
+        setContentView(R.layout.activity_vault)
+    }
+    fun gotoSecret(view: View){
+        setContentView(R.layout.activity_secret)
+    }
+
     /* A native method that is implemented by the
      * 'hello-jni' native library, which is packaged
      * with this application.
      */
-    public native String  stringFromJNI();
+    external fun stringFromJNI(): String
 
     /* This is another native method declaration that is *not*
      * implemented by 'hello-jni'. This is simply to show that
@@ -48,14 +62,17 @@ public class HelloJni extends AppCompatActivity {
      * Trying to call this function will result in a
      * java.lang.UnsatisfiedLinkError exception !
      */
-    public native String  unimplementedStringFromJNI();
+    external fun unimplementedStringFromJNI(): String
 
-    /* this is used to load the 'hello-jni' library on application
+    companion object {
+
+        /* this is used to load the 'hello-jni' library on application
      * startup. The library has already been unpacked into
      * /data/data/com.example.hellojni/lib/libhello-jni.so at
      * installation time by the package manager.
      */
-    static {
-        System.loadLibrary("hello-jni");
+        init {
+            System.loadLibrary("hello-jni")
+        }
     }
 }
