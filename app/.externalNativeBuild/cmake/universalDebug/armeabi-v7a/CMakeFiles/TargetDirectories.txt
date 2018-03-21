@@ -1,3 +1,0 @@
-C:/Users/menta/AndroidStudioProjects/PASS-android/app/.externalNativeBuild/cmake/universalDebug/armeabi-v7a/CMakeFiles/hello-jni.dir
-C:/Users/menta/AndroidStudioProjects/PASS-android/app/.externalNativeBuild/cmake/universalDebug/armeabi-v7a/CMakeFiles/edit_cache.dir
-C:/Users/menta/AndroidStudioProjects/PASS-android/app/.externalNativeBuild/cmake/universalDebug/armeabi-v7a/CMakeFiles/rebuild_cache.dir
