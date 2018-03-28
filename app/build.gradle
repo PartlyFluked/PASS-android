@@ -2,13 +2,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     defaultConfig {
-        applicationId 'com.example.hellojni'
-        minSdkVersion 23
-        targetSdkVersion 25
+        applicationId 'com.example.SecretService'
+        minSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters 'x86_64'//'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+
+        }
+        externalNativeBuild {
+            cmake {
+                arguments '-DANDROID_PLATFORM=android-27',
+                        '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_shared', '-DANDROID_CPP_FEATURES=rtti exceptions', '-DANDROID_PIE=ON'
+            }
+        }
     }
     buildTypes {
         release {
@@ -24,7 +34,7 @@ android {
     }
 
     flavorDimensions 'cpuArch'
-    productFlavors {
+    productFlavors {/*
         arm7 {
             dimension 'cpuArch'
             ndk {
@@ -42,7 +52,7 @@ android {
             ndk {
                 abiFilter 'x86'
             }
-        }
+        }*/
         x86_64 {
             dimension 'cpuArch'
             ndk {
@@ -55,11 +65,17 @@ android {
             //   armeabi-v7a, arm64-v8a, x86, x86_64
         }
     }
+    sourceSets {
+        main {
+            // let gradle pack the shared library into apk
+            jniLibs.srcDirs = ['../distribution/mpir/lib']
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

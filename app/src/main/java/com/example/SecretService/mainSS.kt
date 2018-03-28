@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.hellojni
+package com.example.SecretService
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ListView
 import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.EditText
 
-class HelloJni : AppCompatActivity() {
+class mainSS : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,18 @@ class HelloJni : AppCompatActivity() {
     fun gotoSecret(view: View){
         setContentView(R.layout.activity_secret)
     }
+    fun keySplit(view: View){
+        val key: String = (findViewById<TextView>(R.id.input_key)).text.toString()
+        val n: Int = ((findViewById<EditText>(R.id.input_n)).text.toString()).toInt()
+        val k: Int = ((findViewById<EditText>(R.id.input_k)).text.toString()).toInt()
+        val outputList = findViewById<ListView>(R.id.output_keys)
+        val keyList = Array<String>(k+1,{""})
+        encryptKey(key, n, k, keyList)
+        val arrayAdapter = ArrayAdapter < String >(this, R.layout.layout_list, R.id.textView, keyList)
+        outputList.adapter = arrayAdapter
+    }
+
+    external fun encryptKey(key: String, n: Int, k: Int, keyList: Array<String>)
 
     /* A native method that is implemented by the
      * 'hello-jni' native library, which is packaged
@@ -68,11 +83,13 @@ class HelloJni : AppCompatActivity() {
 
         /* this is used to load the 'hello-jni' library on application
      * startup. The library has already been unpacked into
-     * /data/data/com.example.hellojni/lib/libhello-jni.so at
+     * /data/data/com.example.SecretService/lib/libhello-jni.so at
      * installation time by the package manager.
      */
         init {
-            System.loadLibrary("hello-jni")
+            System.loadLibrary("mpir")
+            System.loadLibrary("mpirxx")
+            System.loadLibrary("secret-service")
         }
     }
 }
