@@ -13,6 +13,39 @@ using namespace std;
 mpz_class keyFunc(int i, int j, vector<mpz_class> &coefficients);
 mpz_class recKeyFunc(int i, int j, vector<mpz_class> &coefficients);
 
+template <typename T>
+void transpose(vector<vector<T>> &input){
+    vector<vector<T>> output = vector<vector<T>>(input[0].size(), vector<T>(input.size()));
+    for(int i=0; i<input.size();i++){
+        for(int j=0; j<input[i].size();j++){
+            output[i][j] = input[j][i];
+        }
+    }
+    input = output;
+    return;
+}
+
+char * doBigMath(const char *A, const char *B, int op){
+    mpz_class bigA, bigB;
+    mpz_set_str(bigA.get_mpz_t(), A, 58);
+    mpz_set_str(bigB.get_mpz_t(), A, 58);
+    switch(op) {
+        case 0:
+            bigA += bigB;
+            break;
+        case 1:
+            bigA -= bigB;
+            break;
+        case 2:
+            bigA *= bigB;
+            break;
+    }
+    string strA = bigA.get_str(58);
+    char * out = (char *) malloc((strA.size()+1)*sizeof(char *));
+    memcpy(out, strA.c_str(), strA.size()+1);
+    return out;
+}
+
 //Generates keys to distribute based on the secret and solve on threshold.
 void generateKeyset(const char * secret, int threshold, int keys, char ** keySet) {
     vector<mpz_class> randList; //List of random coefficients
@@ -37,6 +70,18 @@ void generateKeyset(const char * secret, int threshold, int keys, char ** keySet
         memcpy(newNum, numStr.c_str(), numStr.size()+1);
         memcpy(&keySet[i], &newNum, numStr.size()+1);
     }
+
+
+    vector<vector<int>> test = {{1,2,3},
+                                {4,5,6},
+                                {7,8,9}};
+
+    vector<vector<float>> test2 = {{1.0,2.0,3.0},
+                                {4.0,5.0,6.0},
+                                {7.0,8.0,9.0}};
+
+    transpose(test2);
+    bool breakpointExcuse = true;
     return;
 }
 
@@ -57,7 +102,14 @@ mpz_class recKeyFunc(int x, int j, vector <mpz_class> &coefficients) {
 
 
 //Uses gaussian elimination to solve the simulatanaeous eqns described by the keySet.
-vector<mpz_class> decodeKeyset(vector<mpz_class> &keySet) {
+char * decodeKeyset(char ** keyList, int keyNum) {
+
+    vector<mpz_class> keySet;
+    for (int i = 0; i < keyNum; i++) {
+        mpz_class temp;
+        mpz_set_str(temp.get_mpz_t(), keyList[i], 58);
+        keySet.push_back(temp);
+    }
     vector< vector<mpz_class> > matrix;
     for (int i = 0; i < keySet.size(); i++) {
         matrix.push_back(vector<mpz_class>());
@@ -113,5 +165,6 @@ vector<mpz_class> decodeKeyset(vector<mpz_class> &keySet) {
             matrix[k][n] -= matrix[k][i] * x[i];
         }
     }
-    return x;
+
+    return NULL;
 }

@@ -38,8 +38,8 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.  */
 
 /* Instantiated by configure. */
 #if ! defined (__GMP_WITHIN_CONFIGURE)
-#define __GMP_BITS_PER_MP_LIMB             32
-#define GMP_LIMB_BITS                      32
+#define __GMP_BITS_PER_MP_LIMB             64
+#define GMP_LIMB_BITS                      64
 #define GMP_NAIL_BITS                      0
 #endif
 #define GMP_NUMB_BITS     (GMP_LIMB_BITS - GMP_NAIL_BITS)
@@ -2514,8 +2514,8 @@ enum
 #if ! defined (__GMP_WITHIN_CONFIGURE)
 /* No __GMP_CC here as --enable-gmpcompat option not selected */
 
-#define __MPIR_CC "arm-linux-androideabi-gcc --sysroot /tmp/my-android-toolchain/sysroot -std=gnu99"
-#define __MPIR_CFLAGS "-march=armv7-a"
+#define __MPIR_CC "x86_64-linux-android-clang --sysroot=/tmp/my-android-toolchain/sysroot"
+#define __MPIR_CFLAGS "-fPIE -fPIC"
 #endif
 
 #define __GMP_H__

@@ -60,7 +60,30 @@
             android:id="@+id/output_keys"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Get Secret"
+                android:onClick="getSecret"/>
+
+            <TextView
+                android:id="@+id/output_secret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:text="Output" />
+        </LinearLayout>
 
         <include
             layout="@layout/layout_btnbar"
