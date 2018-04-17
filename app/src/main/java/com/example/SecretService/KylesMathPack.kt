@@ -17,7 +17,7 @@ fun List<Int>.vandermond(): List<List<Int>> {
 
 
 fun List<Int>.polyeval(input: Int): Int {
-    return foldIndexed(0, {index:Int, soFar:Int, next:Int -> soFar + next*pow(input.toDouble(), index.toDouble()).toInt()})
+    return foldIndexed(0, {index:Int, soFar:Int, next:Int -> soFar + next*pow(input.toDouble(), index.toDouble()).toInt() % 2147483647})
 
     //foldRight(0, { soFar, alpha -> alpha + soFar * input })
 }

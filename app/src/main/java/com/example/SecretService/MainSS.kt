@@ -15,65 +15,31 @@
  */
 package com.example.SecretService
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.ArrayAdapter
-import android.widget.EditText
+import android.widget.*
 import java.lang.Math.pow
 
-class mainSS : AppCompatActivity() {
+class MainSS : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /* Retrieve our TextView and set its content.
-         * the text is retrieved by calling a native
-         * function.
-         */
-        setContentView(R.layout.activity_home)
-        //val tv = findViewById(R.id.hello_textview) as TextView
-        //tv.text = stringFromJNI()
+        setContentView(R.layout.activity_main)
     }
 
-    fun gotoHome(view: View) {
-        setContentView(R.layout.activity_home)
+    fun gotoEncrypt(view: View) {
+        val intent = Intent(this, EncryptActivity::class.java)
+        startActivity(intent)
     }
 
     fun gotoKeys(view: View) {
         setContentView(R.layout.activity_keys)
     }
 
-    fun gotoVault(view: View) {
-        setContentView(R.layout.activity_vault)
-    }
-
-    fun gotoSecret(view: View) {
-        setContentView(R.layout.activity_secret)
-    }
-
-    fun keySplit(view: View) {
-        val key: String = (findViewById<TextView>(R.id.input_key)).text.toString()
-        val n: Int = ((findViewById<EditText>(R.id.input_n)).text.toString()).toInt()
-        val k: Int = ((findViewById<EditText>(R.id.input_k)).text.toString()).toInt()
-        val outputList = findViewById<ListView>(R.id.output_keys)
-        val intKey = key.toInt()
-        val keyList = List<ShamirKey>(k, {shamirEncrypt("SECRET", intKey, n).keygen("p1", it+1)} )
-
-        val test1 = listOf(1,2,3,4,5).vandermond()
-        val test2 = test1.det()
-        val test3 = test1.invert()
-        val test4 = test1.cofactor()
-        val test6 = test4.matrixMultiplyRight(test3)
-        val test = shamirDecrypt(keyList);
-
-        //CkeySplit(key, n, k, keyList)
-        val arrayAdapter = ArrayAdapter<String>(this,
-                R.layout.layout_list,
-                R.id.textView,
-                keyList.map{it -> it.point.toString()}
-        )
-        outputList.adapter = arrayAdapter
+    fun gotoSecrets(view: View) {
+        setContentView(R.layout.activity_secrets)
     }
 
     external fun CkeySplit(key: String, n: Int, k: Int, keyList: Array<String>)
@@ -105,7 +71,7 @@ class mainSS : AppCompatActivity() {
 
 
 
-        findViewById<TextView>(R.id.output_secret).setText(CgetSecret(keyList));
+        //findViewById<TextView>(R.id.output_secret).setText(CgetSecret(keyList));
     }
 
     external fun CgetSecret(keyList: List<String>): String

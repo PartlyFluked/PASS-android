@@ -71,7 +71,7 @@ void generateKeyset(const char * secret, int threshold, int keys, char ** keySet
         memcpy(&keySet[i], &newNum, numStr.size()+1);
     }
 
-
+/*
     vector<vector<int>> test = {{1,2,3},
                                 {4,5,6},
                                 {7,8,9}};
@@ -82,7 +82,7 @@ void generateKeyset(const char * secret, int threshold, int keys, char ** keySet
 
     transpose(test2);
     bool breakpointExcuse = true;
-    return;
+    return;*/
 }
 
 mpz_class keyFunc(int i, int j, vector <mpz_class> &coefficients) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_hello_jni"
+    android:parentActivityName="activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,80 +15,70 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/input_key"
-                android:layout_height="wrap_content"
+                android:id="@+id/editText"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:hint="key"
-                android:inputType="textPassword" />
+                android:inputType="textPersonName"
+                android:hint="Secret Name" />
 
             <EditText
                 android:id="@+id/input_n"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="n"
                 android:inputType="number" />
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Of"
                 android:visibility="visible" />
 
             <EditText
                 android:id="@+id/input_k"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="k"
                 android:inputType="number" />
 
-            <Button
-                android:id="@+id/btn_split"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_weight="6"
-                android:onClick="keySplit"
-                android:text="Button"/>
-
         </LinearLayout>
-
-        <ListView
-            android:id="@+id/output_keys"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-        </ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/input_key"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Get Secret"
-                android:onClick="getSecret"/>
+                android:layout_width="wrap_content"
+                android:layout_weight="10"
+                android:hint="Key"
+                android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/output_secret"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btn_split"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
-                android:text="Output" />
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:onClick="keySplit"
+                android:text="Encrypt"/>
+
         </LinearLayout>
 
-        <include
-            layout="@layout/layout_btnbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/output_keys"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1">
+
+        </ListView>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

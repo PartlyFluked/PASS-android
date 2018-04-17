@@ -1,5 +1,7 @@
 package com.example.SecretService
 
+import java.util.Random
+
 /**
  * Created by menta on 29/03/2018.
  */
@@ -18,21 +20,28 @@ class Secret(val secretName: String, val masterkey: MasterKey) {
         return secretName//and MAC later
     }
 
-    fun keygen(keyName: String, index: Int): ShamirKey {
+    fun keygen(keyName: String, input: Int): ShamirKey {
         return ShamirKey(
                 secretName,
                 keyName,
-                index,
-                masterkey.coefficients.polyeval(index)
+                input,
+                masterkey.coefficients.polyeval(input)
         )
     }
 }
 
-fun shamirEncrypt(secretName: String, message: Int, threshold: Int): Secret {
+fun shamirEncrypt(secretName: String, message: Int, threshold: Int, rndGen: Random): Secret {
     return Secret(
             secretName,
             MasterKey(
-                    List<Int>(threshold, { index -> if (index == 0) message else (Math.random() * 4294967291).toInt() })
+                    List<Int>(
+                            threshold,
+                            { index ->
+                                if (index == 0)
+                                message
+                            else (rndGen.nextInt(2147483647))
+                            }
+                    )
             )
     )
 }
